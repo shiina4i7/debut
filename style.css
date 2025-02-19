@@ -1,0 +1,336 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #340034, #000000); /* Gradien ungu ke hitam */
+    overflow: hidden; /* Mencegah scrollbar */
+    font-family: "Plus Jakarta Sans", serif; /* Added default font */
+}
+
+.instruction {
+    font-family: "Plus Jakarta Sans", serif;
+    font-size: 0.75em;
+    font-weight: bold;
+    position: absolute;
+    top: 5%;
+    width: 100%;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    text-align: center;
+    color: white;
+    user-select: none;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 800px; /* Simplified perspective */
+    transform-style: preserve-3d;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0); /* Start at original position */
+    }
+    25% {
+        transform: translateY(-10px); /* Move up slightly */
+    }
+    50% {
+        transform: translateY(0); /* Return to original position */
+    }
+    75% {
+        transform: translateY(10px); /* Move down slightly */
+    }
+    100% {
+        transform: translateY(0); /* Return to original position */
+    }
+}
+
+.card {
+    width: 750px;
+    height: 300px;
+    border-radius: 30px;
+    box-shadow: 20px 20px 75px rgba(0, 0, 0, 0.5);
+    background-image: url("./reguler.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform-style: preserve-3d;
+    transition: 0.1s;
+    overflow: hidden;
+    position: relative; /* Needed for absolute positioning of boarding pass */
+}
+
+.gambar-barcode {
+    position: absolute; /* Atur posisi gambar di dalam card */
+    top: 100px; /* Sesuaikan posisi atas */
+    left: 25px;
+    right: 0px; /* Sesuaikan posisi kanan */
+    width: 140px; /* Sesuaikan lebar gambar */
+    height: auto; /* Biarkan tinggi menyesuaikan */
+    transform: rotate(45deg); /* Putar gambar 90 derajat searah jarum jam */
+    /* Tambahkan properti berikut jika Anda ingin gambar berada di atas konten lain */
+    z-index: 1; 
+  }
+
+.gambar-qr {
+    position: absolute; /* Atur posisi gambar di dalam card */
+    top: 65px; /* Sesuaikan posisi atas */
+    right: 20px; /* Sesuaikan posisi kanan */
+    width: 90px; /* Sesuaikan lebar gambar */
+    height: auto; /* Biarkan tinggi menyesuaikan */
+    /* Tambahkan properti berikut jika Anda ingin gambar berada di atas konten lain */
+    z-index: 1; 
+}
+
+.gambar-qr p {
+    font-family: "Plus Jakarta Sans", serif;
+    position: absolute;
+    font-weight: bold;
+    top: 35px;
+    left: -12px;
+    line-height: 8px;
+    color: rgb(163, 73, 164);
+    text-transform: uppercase;
+}
+
+.card:hover {
+    /* Efek Mengkilat saat di-hover */
+    box-shadow: 20px 20px 75px rgba(0, 0, 0, 0.7); /* Bayangan lebih gelap */
+    transform: scale(1.02); /* Sedikit membesar */
+    transition: 0.3s; /* Transisi lebih halus */
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.918), transparent); /* Gradien putih transparan */
+    opacity: 0; /* Awalnya tidak terlihat */
+    transition: 0.3s; /* Transisi halus */
+    pointer-events: none; /* Memastikan tidak mengganggu hover */
+    z-index: 1; /* Ensure it's above the background image */
+}
+
+.card::after {
+    content: ""; /* Required for pseudo-elements */
+    background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/13471/sparkles.gif");
+    position: absolute;
+    border-radius: 30px;
+    top: 0; /* Position at the top */
+    left: 0; /* Position at the left */
+    width: 100%; /* Cover the entire card */
+    height: 100%; /* Cover the entire card */
+    background-size: cover; /* Or contain, depending on the GIF */
+    background-repeat: no-repeat; /* Prevent tiling */
+    mix-blend-mode: color-dodge; /* Keep this for the sparkle effect */
+    opacity: 0.3; /* Adjust opacity as needed */
+    z-index: 2; /* Ensure it's above other card content */
+    pointer-events: none; /* Prevent interaction with the sparkles */
+    animation: haloSparkle 15s linear infinite; /* Keep your animation */
+}
+
+@keyframes haloSparkle {
+    0% {
+        transform: scale(1); /* Start at normal size */
+        opacity: 0.3;
+    }
+    50% {
+        transform: scale(1.2); /* Scale up slightly */
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale.7; /* Return to normal size */
+        opacity: 0.3;
+    }
+}
+
+.card:hover::before {
+    opacity: 1; /* Muncul saat di-hover */
+}
+
+/* Efek 3D Tipis (Optional) */
+.card {
+    perspective: 1000px; /* Untuk efek 3D */
+}
+
+.card:hover {
+    transform: scale(1.02) rotateY(5deg); /* Sedikit rotasi saat di-hover */
+    transition: 0.3s;
+}
+
+
+.card.REG {
+    background-image: url("./reguler.png");
+}
+  
+.card.VIP {
+    background-image: url("./vip.png");
+}
+  
+.card.PREMIUM {
+    background-image: url("./premium.png");
+}
+
+.card__gloss {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    transform: translateZ(1px);
+    z-index: 2;
+    /* Tambahkan efek overlay jika diperlukan */
+    background-color: rgba(255, 255, 255, 0.712); /* Contoh overlay putih transparan */
+    mix-blend-mode: overlay; /* Contoh blend mode, bisa disesuaikan */
+  }
+
+.card__content {
+    position: absolute; /* Position absolutely to allow overlay */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transform: translateZ(75px); /* Move content forward */
+}
+
+
+.card__name {
+    font-weight: bold;
+    font-size: 40px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 20px; /* Add some space above the name */
+}
+
+.boarding-pass {
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 10px;
+    padding: 19px;
+    width: auto; /* Atau width: 100%; jika Anda ingin memenuhi lebar card */
+    max-width: 100%; /* Pastikan tidak melebihi lebar card */
+    position: absolute;
+    left: 0; /* 0px jika Anda ingin menempel di bagian kiri */
+    right: 0; /* 0px jika Anda ingin menempel di bagian kanan */
+    /* Tambahkan z-index jika diperlukan untuk memastikan .boarding-pass berada di atas elemen lain */
+    z-index: 1; /* Contoh */
+}
+
+.logo {
+    width: 100px;
+    height: 60px;
+    margin-top: 0px;
+}
+
+.logo img {
+    width: 100px;  /* Fixed width */
+    height: auto; /* Height adjusts proportionally */
+}
+
+.title{
+    font-family: "Plus Jakarta Sans", serif;
+    position: absolute;
+    top: 0px;
+    left: 140px;
+    color: white;
+    animation: hologram-effect 5s linear infinite; /* Animasi */
+}
+
+@keyframes hologram-effect {
+    0% {
+      text-shadow: 
+        -1px -1px 1px #00FFFF, /* Cyan */
+        1px 1px 1px #FF00FF; /* Magenta */
+    }
+    25% {
+      text-shadow: 
+        -1.5px -1.5px 1.5px #00FFFF, /* Cyan */
+        1.5px 1.5px 1.5px #FF00FF; /* Magenta */
+    }
+    50% {
+      text-shadow: 
+        -2px -2px 2px #00ffff96, /* Cyan */
+        2px 2px 2px #ff00ff81; /* Magenta */
+    }
+    75% {
+      text-shadow: 
+        -1.5px -1.5px 1.5px #00FFFF, /* Cyan */
+        1.5px 1.5px 1.5px #FF00FF; /* Magenta */
+    }
+    100% {
+      text-shadow: 
+        -1px -1px 1px #00FFFF, /* Cyan */
+        1px 1px 1px #FF00FF; /* Magenta */
+    }
+  }
+
+.title h2 {  /* Style untuk h2 */
+    font-size: 2em; /* Ukuran font */
+    font-weight: bold; /* Tebal font */
+    font-style: italic; /* Gaya italic */
+    margin-top: 20px;
+    margin-bottom: -10px;
+    color: inherit; /* Pewarisan warna dari .card__name */
+}
+
+.title h3 { /* Style untuk h3 */
+    font-size: 10px; /* Ukuran font */
+    margin-top: -10px;
+    color: inherit; /* Pewarisan warna dari .card__name */
+}
+
+.debut-title{
+    position: absolute;
+    top: 80px;
+    left: 50px;
+    color: rgb(163, 73, 164);
+    text-transform: uppercase;
+}
+
+.debut-title h2 {  /* Style untuk h2 */
+    font-size: 20px; /* Ukuran font */
+    font-weight: bold; /* Tebal font */
+    font-style: italic; /* Gaya italic */
+    color: inherit; /* Pewarisan warna dari .card__name */
+}
+
+.passenger-info{
+    font-family: "Plus Jakarta Sans", serif;
+    position: absolute;
+    font-weight: bold;
+    top: 130px;
+    left: 60px;
+    line-height: 10px;
+    color: rgb(163, 73, 164);
+    text-transform: uppercase;
+}
+
+.bottom-info{
+    position: absolute;
+    font-size: 10px;
+    font-style: italic;
+    top: 275px;
+    left: 60px;
+    line-height: 10px;
+    color: rgb(163, 73, 164);
+    text-transform: uppercase;
+}
+
+p span {
+    color: black; /* Warna hitam untuk "Shiina Cruise Ship" dan teks lainnya dalam <p> */
+    font-size: 20px;
+}
