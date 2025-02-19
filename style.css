@@ -3,9 +3,44 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    background: linear-gradient(to bottom, #340034, #000000); /* Gradien ungu ke hitam */
+    background-image: url("ocean.png");
+    background-size: cover;
     overflow: hidden; /* Mencegah scrollbar */
+    position: relative; /* Needed for absolute positioning of boarding pass */
     font-family: "Plus Jakarta Sans", serif; /* Added default font */
+}
+
+body::before {
+    content: "";
+    background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/13471/sparkles.gif");
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    mix-blend-mode: lighten;
+    opacity: 0.9;
+    /* z-index: -1;  Bisa dicoba jika masih perlu di belakang konten body yang lain*/
+    pointer-events: none;
+    animation: haloSparkle 15s linear infinite;
+    filter: brightness(2);
+}
+
+@keyframes haloSparkle {
+    0% {
+        transform: scale(1); /* Start at normal size */
+        opacity: 0.3;
+    }
+    50% {
+        transform: scale(1.2); /* Scale up slightly */
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale.7; /* Return to normal size */
+        opacity: 0.3;
+    }
 }
 
 .instruction {
@@ -64,6 +99,8 @@ html, body {
     transition: 0.1s;
     overflow: hidden;
     position: relative; /* Needed for absolute positioning of boarding pass */
+    perspective: 1000px;
+    z-index: 3;
 }
 
 .gambar-barcode {
@@ -113,54 +150,51 @@ html, body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to top, rgba(255, 255, 255, 0.918), transparent); /* Gradien putih transparan */
     opacity: 0; /* Awalnya tidak terlihat */
     transition: 0.3s; /* Transisi halus */
     pointer-events: none; /* Memastikan tidak mengganggu hover */
     z-index: 1; /* Ensure it's above the background image */
 }
 
-.card::after {
-    content: ""; /* Required for pseudo-elements */
-    background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/13471/sparkles.gif");
+.card::before {
+    content: "";
     position: absolute;
-    border-radius: 30px;
-    top: 0; /* Position at the top */
-    left: 0; /* Position at the left */
-    width: 100%; /* Cover the entire card */
-    height: 100%; /* Cover the entire card */
-    background-size: cover; /* Or contain, depending on the GIF */
-    background-repeat: no-repeat; /* Prevent tiling */
-    mix-blend-mode: color-dodge; /* Keep this for the sparkle effect */
-    opacity: 0.3; /* Adjust opacity as needed */
-    z-index: 2; /* Ensure it's above other card content */
-    pointer-events: none; /* Prevent interaction with the sparkles */
-    animation: haloSparkle 15s linear infinite; /* Keep your animation */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to bottom right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3); /* Warna pelangi */
+    opacity: 0.4; /* Tingkat transparansi efek hologram */
+    animation: rainbow 5s linear infinite; /* Animasi perubahan warna */
+    mix-blend-mode: overlay; /* Mode campuran untuk efek hologram */
 }
-
-@keyframes haloSparkle {
+  
+  @keyframes rainbow {
     0% {
-        transform: scale(1); /* Start at normal size */
-        opacity: 0.3;
-    }
-    50% {
-        transform: scale(1.2); /* Scale up slightly */
-        opacity: 0.5;
+      background-position: 0% 50%;
     }
     100% {
-        transform: scale.7; /* Return to normal size */
-        opacity: 0.3;
+      background-position: 100% 50%;
     }
+}
+  
+  .card-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #333; /* Warna teks */
 }
 
 .card:hover::before {
-    opacity: 1; /* Muncul saat di-hover */
+    opacity: 0.6; /* Muncul saat di-hover */
 }
 
-/* Efek 3D Tipis (Optional) */
-.card {
-    perspective: 1000px; /* Untuk efek 3D */
-}
 
 .card:hover {
     transform: scale(1.02) rotateY(5deg); /* Sedikit rotasi saat di-hover */
