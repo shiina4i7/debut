@@ -21,5 +21,5 @@ document.getElementById("formButton").addEventListener("click", function() {
   });
 
 document.getElementById("streamButton").addEventListener("click", function() {
-    window.open("https:/youtube.com/c/shiinaasherah", "_blank");
+    window.open("https://youtube.com/c/shiinaasherah", "_blank");
   });
