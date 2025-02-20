@@ -15,3 +15,11 @@ downloadButton.addEventListener('click', () => {
             console.log("Error details:", error); // Tampilkan detail error
         });
 });
+
+document.getElementById("formButton").addEventListener("click", function() {
+    window.open("https://bit.ly/SHIINADEBUT", "_blank");
+  });
+
+document.getElementById("streamButton").addEventListener("click", function() {
+    window.open("https:/youtube.com/c/shiinaasherah", "_blank");
+  });
