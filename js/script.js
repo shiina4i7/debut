@@ -56,3 +56,23 @@
   init();
 
 })();
+
+
+function createBubble() {
+    const bubble = document.createElement("div");
+    bubble.classList.add("bubble");
+
+    const x = Math.random() * window.innerWidth;
+    const y = Math.random() * window.innerHeight;
+
+    bubble.style.left = `${x}px`;
+    bubble.style.top = `${y}px`;
+
+    document.body.appendChild(bubble);
+
+    setTimeout(() => {
+        bubble.remove();
+    }, 3000); // Hapus gelembung setelah animasi selesai
+}
+
+setInterval(createBubble, 500); // Buat gelembung setiap 0.5 detik

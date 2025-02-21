@@ -3,11 +3,78 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    background-image: url("ocean.png");
+    background-image: url("img/ocean.png");
     background-size: cover;
     overflow: hidden; /* Mencegah scrollbar */
     position: relative; /* Needed for absolute positioning of boarding pass */
     font-family: "Plus Jakarta Sans", serif; /* Added default font */
+}
+
+body::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200%; /* Lebar dua kali lipat untuk animasi */
+    height: 550px;
+    background-image: url("img/waves.png"); /* Hanya gambar gelombang */
+    background-size: auto 100%;
+    animation: waveAnimation 1000s linear infinite, blurAnimation 8s ease-in-out infinite; /* Tambahkan animasi blur */
+    transform-origin: 50% 100%;
+    filter: blur(2px);
+}
+
+@keyframes waveAnimation {
+    0% {
+        transform: translateX(0) rotate(0deg);
+    }
+    50% {
+        transform: translateX(-50%) rotate(2deg);
+    }
+    100% {
+        transform: translateX(-100%) rotate(0deg);
+    }
+}
+
+@keyframes blurAnimation { /* Animasi blur */
+    0% {
+        filter: blur(1px);
+        top: 55%;
+    }
+    50% {
+        filter: blur(3px);
+        top: 60%;
+    }
+    100% {
+        filter: blur(1px);
+        top: 55%;
+    }
+}
+
+.bubble {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-image: url("img/bubble.png"); /* Ganti dengan gambar gelembung Anda */
+    background-size: cover; /* Sesuaikan ukuran gambar */
+    animation: bubbleAnimation 3s linear infinite;
+    filter: blur(2px);
+}
+
+@keyframes bubbleAnimation {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
 }
 
 body::before {
@@ -91,7 +158,7 @@ body::before {
     height: 300px;
     border-radius: 30px;
     box-shadow: 20px 20px 75px rgba(0, 0, 0, 0.5);
-    background-image: url("./reguler.png");
+    background-image: url("./img/reguler.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -163,7 +230,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: linear-gradient(to bottom right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3); /* Warna pelangi */
+    background-image: linear-gradient(to bottom right, #ff0000c0, #ff8000c0, #ffff00c0, #00ff00c0, #0000ffc0, #4b0082c0, #9400d3c0); /* Warna pelangi */
     opacity: 0.3; /* Tingkat transparansi efek hologram */
     animation: rainbow 5s linear infinite; /* Animasi perubahan warna */
     mix-blend-mode: overlay; /* Mode campuran untuk efek hologram */
@@ -203,15 +270,15 @@ body::before {
 
 
 .card.REG {
-    background-image: url("./reguler.png");
+    background-image: url("./img/reguler.png");
 }
   
 .card.VIP {
-    background-image: url("./vip.png");
+    background-image: url("./img/vip.png");
 }
   
 .card.PREMIUM {
-    background-image: url("./premium.png");
+    background-image: url("./img/premium.png");
 }
 
 .card__gloss {
@@ -387,6 +454,7 @@ p span {
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.3s ease; /* Transisi hover */
+    z-index: 1000;
   }
   
   .download-info button:hover {
@@ -410,6 +478,7 @@ p span {
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.3s ease; /* Transisi hover */
+    z-index: 1000;
   }
   
   .form-info button:hover {
@@ -433,6 +502,7 @@ p span {
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.3s ease; /* Transisi hover */
+    z-index: 1000;
   }
   
   .stream-info button:hover {

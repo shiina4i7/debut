@@ -1,7 +1,9 @@
 downloadButton.addEventListener('click', () => {
     console.log("Tombol download diklik"); // Cek apakah event listener berfungsi
 
-    html2canvas(card)
+    html2canvas(card, {
+        backgroundColor: null // Atau 'rgba(0,0,0,0)'
+    })
         .then(canvas => {
             console.log("html2canvas berhasil");
             const link = document.createElement('a');
